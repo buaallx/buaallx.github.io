@@ -13,7 +13,7 @@
 
 
 
-<title>树形DP_总结 | Hexo</title>
+<title>分块_P4135作诗 | Hexo</title>
 
 
 
@@ -123,90 +123,25 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">树形DP_总结</h1>
+            <h1 class="post-title">分块_P4135作诗</h1>
             
                 <div class="post-meta">
                     
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 9, 2024&nbsp;&nbsp;23:46:05</a>
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:26:51</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -215,10 +150,13 @@
         </header>
 
         <div class="post-content">
-            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>树形dp由于树固有的递归性质，都一般是在<strong>递归进行</strong>的，顺序<strong>由深到浅</strong>，典型的<strong>拓扑顺序</strong>，其阶段也一般是由<strong>子树划分</strong>。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-树上决策"><a href="#1-树上决策" class="headerlink" title="1.树上决策"></a>1.树上决策</h3><p>这类问题主要通过树形dp统计树的<strong>最大值最小值</strong>等结构。值得注意的是，树的<strong>每一个连通块都必定有树根</strong>。       </p>
-<h3 id="2-树上背包"><a href="#2-树上背包" class="headerlink" title="2.树上背包"></a>2.树上背包</h3><p>这类问题的阶段不再以单个节点为单位，而是<strong>以节点为根的子树作为阶段特征</strong>，转移也大多发生在<strong>父节点与子节点</strong>之间。</p>
-<h3 id="3-换根"><a href="#3-换根" class="headerlink" title="3.换根"></a>3.换根</h3><p>当根节点与子节点进行换根操作时，<strong>许多信息只在这两个节点上发生改变，这使得换根操作可维持在常数级别</strong>。</p>
+            <blockquote>
+<p>分块简单，又不简单      </p>
+</blockquote>
+<p>这道题目倒是很容易发现时分治算法，毕竟用其他数据结构一看没思路。。。</p>
+<p>这里的分治难就难在如何预处理，我一开始只记录了每个区块各个值得出现次数，但这对于后续的问题却明显不够。      </p>
+<p>事实上，这道题的要求是，如何在N^(3&#x2F;2)内不仅<strong>实现记录每个区块内值的出现次数，还要记录各个区块间出现偶数次的值的个数</strong>，这样每次查询时就都能够在block时间内实现求解。      </p>
+<p><del>代码索引：0x44</del></p>
 
         </div>
 
@@ -229,7 +167,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%A0%91%E5%BD%A2DP/"># 树形DP</a>
+                        <a href="/tags/%E5%88%86%E5%9D%97/"># 分块</a>
                     
                         
                 </span>
@@ -242,8 +180,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/08/10/%E6%95%B0%E4%BD%8DDP%E7%81%B5%E7%A5%9E%E6%A8%A1%E6%9D%BF/">数位DP_灵神模板</a>
+                <a class="prev" rel="prev" href="/2024/08/10/%E5%B9%B3%E8%A1%A1%E6%A0%91-%E6%80%BB%E7%BB%93/">平衡树_总结</a>
             
+            
+            <a class="next" rel="next" href="/2024/08/10/%E5%88%86%E5%9D%97/">分块_总结</a>
             
         </section>
 

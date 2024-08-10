@@ -13,7 +13,7 @@
 
 
 
-<title>树形DP_总结 | Hexo</title>
+<title>分块_总结 | Hexo</title>
 
 
 
@@ -192,21 +192,21 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">树形DP_总结</h1>
+            <h1 class="post-title">分块_总结</h1>
             
                 <div class="post-meta">
                     
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 9, 2024&nbsp;&nbsp;23:46:05</a>
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:25:17</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -215,10 +215,12 @@
         </header>
 
         <div class="post-content">
-            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>树形dp由于树固有的递归性质，都一般是在<strong>递归进行</strong>的，顺序<strong>由深到浅</strong>，典型的<strong>拓扑顺序</strong>，其阶段也一般是由<strong>子树划分</strong>。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-树上决策"><a href="#1-树上决策" class="headerlink" title="1.树上决策"></a>1.树上决策</h3><p>这类问题主要通过树形dp统计树的<strong>最大值最小值</strong>等结构。值得注意的是，树的<strong>每一个连通块都必定有树根</strong>。       </p>
-<h3 id="2-树上背包"><a href="#2-树上背包" class="headerlink" title="2.树上背包"></a>2.树上背包</h3><p>这类问题的阶段不再以单个节点为单位，而是<strong>以节点为根的子树作为阶段特征</strong>，转移也大多发生在<strong>父节点与子节点</strong>之间。</p>
-<h3 id="3-换根"><a href="#3-换根" class="headerlink" title="3.换根"></a>3.换根</h3><p>当根节点与子节点进行换根操作时，<strong>许多信息只在这两个节点上发生改变，这使得换根操作可维持在常数级别</strong>。</p>
+            <h1 id="基本内容"><a href="#基本内容" class="headerlink" title="基本内容"></a>基本内容</h1><h2 id="1-分块"><a href="#1-分块" class="headerlink" title="1.分块"></a>1.分块</h2><p>当<strong>维护某些复杂信息</strong>时，树状数组与线段树等数据结构非常吃力。分块算法在处理这些问题的时候更加<strong>简单、直观</strong>。</p>
+<h2 id="2-基本思想"><a href="#2-基本思想" class="headerlink" title="2.基本思想"></a>2.基本思想</h2><p>经过适当的<strong>划分</strong>，<strong>预处理</strong>,利用<strong>空间换取时间</strong>,实现时空平衡。大部分的分块算法都可以用<strong>大段维护、局部朴素</strong>的思想形容。<br>这种分块算法相较于线段树等数据结构更加通用，同时<strong>每块的大小往往也需要根据实际情况进行代数层面的计算</strong>，所以分块算法有更多的形式，有<strong>较强的技巧性</strong>。要努力实现在一定的时间复杂度内预处理出足够多的信息并灵活应用。   </p>
+<p><a target="_blank" rel="noopener" href="http://119.3.187.142/p4135-%e4%bd%9c%e8%af%97/">P4135 作诗</a></p>
+<h1 id="进阶应用"><a href="#进阶应用" class="headerlink" title="进阶应用"></a>进阶应用</h1><h2 id="莫队算法"><a href="#莫队算法" class="headerlink" title="莫队算法"></a>莫队算法</h2><p>对<strong>询问序列</strong>的顺序进行预处理，例如可以整体按序列左端点递增排序，再<strong>分块</strong>，二次对右端点进行排序。      </p>
+<p>莫队算法是<strong>离线算法</strong>,通过对<strong>询问序列的分块</strong>，减少了序列端点间的<strong>曼哈顿距离</strong>。      </p>
+<p><del>blue book 0x44</del></p>
 
         </div>
 
@@ -229,7 +231,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%A0%91%E5%BD%A2DP/"># 树形DP</a>
+                        <a href="/tags/%E5%88%86%E5%9D%97/"># 分块</a>
                     
                         
                 </span>
@@ -242,8 +244,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/08/10/%E6%95%B0%E4%BD%8DDP%E7%81%B5%E7%A5%9E%E6%A8%A1%E6%9D%BF/">数位DP_灵神模板</a>
+                <a class="prev" rel="prev" href="/2024/08/10/%E5%88%86%E5%9D%97-%E4%BD%9C%E8%AF%97/">分块_P4135作诗</a>
             
+            
+            <a class="next" rel="next" href="/2024/08/10/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集_总结</a>
             
         </section>
 

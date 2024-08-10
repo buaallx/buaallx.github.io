@@ -13,7 +13,7 @@
 
 
 
-<title>树形DP_总结 | Hexo</title>
+<title>线段树_poj1177picture | Hexo</title>
 
 
 
@@ -192,21 +192,21 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">树形DP_总结</h1>
+            <h1 class="post-title">线段树_poj1177picture</h1>
             
                 <div class="post-meta">
                     
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 9, 2024&nbsp;&nbsp;23:46:05</a>
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:47:32</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -215,10 +215,14 @@
         </header>
 
         <div class="post-content">
-            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>树形dp由于树固有的递归性质，都一般是在<strong>递归进行</strong>的，顺序<strong>由深到浅</strong>，典型的<strong>拓扑顺序</strong>，其阶段也一般是由<strong>子树划分</strong>。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-树上决策"><a href="#1-树上决策" class="headerlink" title="1.树上决策"></a>1.树上决策</h3><p>这类问题主要通过树形dp统计树的<strong>最大值最小值</strong>等结构。值得注意的是，树的<strong>每一个连通块都必定有树根</strong>。       </p>
-<h3 id="2-树上背包"><a href="#2-树上背包" class="headerlink" title="2.树上背包"></a>2.树上背包</h3><p>这类问题的阶段不再以单个节点为单位，而是<strong>以节点为根的子树作为阶段特征</strong>，转移也大多发生在<strong>父节点与子节点</strong>之间。</p>
-<h3 id="3-换根"><a href="#3-换根" class="headerlink" title="3.换根"></a>3.换根</h3><p>当根节点与子节点进行换根操作时，<strong>许多信息只在这两个节点上发生改变，这使得换根操作可维持在常数级别</strong>。</p>
+            <blockquote>
+<p>做这道题我花了相当多的时间，一是由于自己的代码太长没有进行<strong>模块化的编程</strong>（例如求解水平和竖直周长的时候可以用相同的函数处理），二是我对<strong>扫描线算法求解的问题特性</strong>不够熟悉。</p>
+</blockquote>
+<hr>
+<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><p>这道题很容易看出来是<strong>扫描线算法</strong>，因此建立扫描线和离散化处理就是非常自然的操作。但是之后有两点卡住了我：</p>
+<p>（1）扫描线算法处理的问题一般都有一个特性，那就是<strong>正1扫描线和负1扫描线都是一一对应</strong>的。因此对于线段树的每一个节点，我们都可以直接用<strong>c数组</strong>表示该节点代表区间被扫描线覆盖的次数。若c大于0，则直接得到区间全部被覆盖；若c&#x3D;0,则区间覆盖值就是子区间覆盖长度之和。</p>
+<p>（2）周长变化应该如何维护？我之前想要对每个单位长度的覆盖次数进行维护，但这样时间复杂度极高。其实只需要每次更新扫描线后将<strong>abs(新覆盖长度-旧覆盖长度)加入到ans</strong>里就行。需要注意的是，这道题默认重叠边的长度算入周长，是非常坑的一个点。如果不计入重叠边的话，应该需要在先对扫描线进行预处理。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a target="_blank" rel="noopener" href="http://poj.org/showmessage?message_id=360556">poj题解代码</a></p>
 
         </div>
 
@@ -229,7 +233,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%A0%91%E5%BD%A2DP/"># 树形DP</a>
+                        <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/"># 线段树</a>
                     
                         
                 </span>
@@ -242,8 +246,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/08/10/%E6%95%B0%E4%BD%8DDP%E7%81%B5%E7%A5%9E%E6%A8%A1%E6%9D%BF/">数位DP_灵神模板</a>
+                <a class="prev" rel="prev" href="/2024/08/10/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%B8%8E%E5%8D%95%E8%B0%83%E6%A0%88/">单调队列与单调栈_总结</a>
             
+            
+            <a class="next" rel="next" href="/2024/08/10/%E9%AD%94%E6%9C%AF%E5%B8%88/">线段树_魔术师</a>
             
         </section>
 

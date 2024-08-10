@@ -13,7 +13,7 @@
 
 
 
-<title>树形DP_总结 | Hexo</title>
+<title>并查集_总结 | Hexo</title>
 
 
 
@@ -192,21 +192,21 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">树形DP_总结</h1>
+            <h1 class="post-title">并查集_总结</h1>
             
                 <div class="post-meta">
                     
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 9, 2024&nbsp;&nbsp;23:46:05</a>
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:19:08</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -215,10 +215,19 @@
         </header>
 
         <div class="post-content">
-            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>树形dp由于树固有的递归性质，都一般是在<strong>递归进行</strong>的，顺序<strong>由深到浅</strong>，典型的<strong>拓扑顺序</strong>，其阶段也一般是由<strong>子树划分</strong>。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-树上决策"><a href="#1-树上决策" class="headerlink" title="1.树上决策"></a>1.树上决策</h3><p>这类问题主要通过树形dp统计树的<strong>最大值最小值</strong>等结构。值得注意的是，树的<strong>每一个连通块都必定有树根</strong>。       </p>
-<h3 id="2-树上背包"><a href="#2-树上背包" class="headerlink" title="2.树上背包"></a>2.树上背包</h3><p>这类问题的阶段不再以单个节点为单位，而是<strong>以节点为根的子树作为阶段特征</strong>，转移也大多发生在<strong>父节点与子节点</strong>之间。</p>
-<h3 id="3-换根"><a href="#3-换根" class="headerlink" title="3.换根"></a>3.换根</h3><p>当根节点与子节点进行换根操作时，<strong>许多信息只在这两个节点上发生改变，这使得换根操作可维持在常数级别</strong>。</p>
+            <h1 id="基础内容"><a href="#基础内容" class="headerlink" title="基础内容"></a>基础内容</h1><h2 id="1-用途"><a href="#1-用途" class="headerlink" title="1.用途"></a>1.用途</h2><p>用于动态维护若干个不重叠的<strong>集合</strong>，并支持<strong>合并与查询</strong></p>
+<h2 id="2-基本思想"><a href="#2-基本思想" class="headerlink" title="2.基本思想"></a>2.基本思想</h2><p>使用树形结构存储每个集合，树根即为集合的<strong>代表元</strong></p>
+<h2 id="3-操作"><a href="#3-操作" class="headerlink" title="3.操作"></a>3.操作</h2><h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>采用<strong>路径压缩</strong>的方式优化查询过程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[p]==p)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[p]=<span class="built_in">find</span>(f[p]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>采用<strong>按秩合并</strong>方式优化合并过程。此处的秩以集合的大小s为衡量标准。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(s[u]&gt;s[v])</span><br><span class="line">&#123;</span><br><span class="line">    f[v]=u;</span><br><span class="line">    s[u]+=s[v];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    f[u]=v;</span><br><span class="line">    s[v]+=s[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>采用了上述两种优化的并查集，每次查询操作的<strong>均摊复杂度降低到了极小的常数级别</strong>。</p>
+<h1 id="进阶应用"><a href="#进阶应用" class="headerlink" title="进阶应用"></a>进阶应用</h1><h3 id="动态维护如“等于”的传递性关系"><a href="#动态维护如“等于”的传递性关系" class="headerlink" title="动态维护如“等于”的传递性关系"></a>动态维护如“等于”的传递性关系</h3><p>本质上能够维护无向图中节点之间的连通性</p>
+<h3 id="边带权、扩展域并查集"><a href="#边带权、扩展域并查集" class="headerlink" title="边带权、扩展域并查集"></a>边带权、扩展域并查集</h3><p><strong>边带权并查集</strong>就是节点之间的边带权，在路径压缩过程中也能<strong>保存路径上节点的信息</strong>。它的一棵树可以理解为保存着相互关系的节点集合。</p>
+<p><strong>扩展域并查集</strong>就是将每个节点拆成多个节点，分别代表该节点的可能状态。<strong>它的一棵树可以理解为可以互相导出的节点状态集合。</strong></p>
+<p>边带权、扩展域并查集均擅长维护<strong>多传递关系、传递关系可互相导出</strong>的集合。如奇偶性、三元循环关系等。</p>
+<hr>
+<p><del>更详细内容可参考blue book0x41</del></p>
 
         </div>
 
@@ -229,7 +238,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%A0%91%E5%BD%A2DP/"># 树形DP</a>
+                        <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"># 并查集</a>
                     
                         
                 </span>
@@ -242,8 +251,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/08/10/%E6%95%B0%E4%BD%8DDP%E7%81%B5%E7%A5%9E%E6%A8%A1%E6%9D%BF/">数位DP_灵神模板</a>
+                <a class="prev" rel="prev" href="/2024/08/10/%E5%88%86%E5%9D%97/">分块_总结</a>
             
+            
+            <a class="next" rel="next" href="/2024/08/10/NOJ%E9%A2%9C%E8%89%B2%E5%B9%B3%E8%A1%A1%E6%A0%91/">树上启发式合并_NOJ颜色平衡树</a>
             
         </section>
 

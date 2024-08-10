@@ -13,7 +13,7 @@
 
 
 
-<title>树形DP_总结 | Hexo</title>
+<title>树状数组_总结 | Hexo</title>
 
 
 
@@ -192,21 +192,21 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">树形DP_总结</h1>
+            <h1 class="post-title">树状数组_总结</h1>
             
                 <div class="post-meta">
                     
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 9, 2024&nbsp;&nbsp;23:46:05</a>
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:42:13</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -215,10 +215,29 @@
         </header>
 
         <div class="post-content">
-            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>树形dp由于树固有的递归性质，都一般是在<strong>递归进行</strong>的，顺序<strong>由深到浅</strong>，典型的<strong>拓扑顺序</strong>，其阶段也一般是由<strong>子树划分</strong>。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="1-树上决策"><a href="#1-树上决策" class="headerlink" title="1.树上决策"></a>1.树上决策</h3><p>这类问题主要通过树形dp统计树的<strong>最大值最小值</strong>等结构。值得注意的是，树的<strong>每一个连通块都必定有树根</strong>。       </p>
-<h3 id="2-树上背包"><a href="#2-树上背包" class="headerlink" title="2.树上背包"></a>2.树上背包</h3><p>这类问题的阶段不再以单个节点为单位，而是<strong>以节点为根的子树作为阶段特征</strong>，转移也大多发生在<strong>父节点与子节点</strong>之间。</p>
-<h3 id="3-换根"><a href="#3-换根" class="headerlink" title="3.换根"></a>3.换根</h3><p>当根节点与子节点进行换根操作时，<strong>许多信息只在这两个节点上发生改变，这使得换根操作可维持在常数级别</strong>。</p>
+            <h1 id="基础内容"><a href="#基础内容" class="headerlink" title="基础内容"></a>基础内容</h1><h2 id="1-用途"><a href="#1-用途" class="headerlink" title="1.用途"></a>1.用途</h2><p>用于维护<strong>序列的前缀和</strong></p>
+<h2 id="2-基本思想"><a href="#2-基本思想" class="headerlink" title="2.基本思想"></a>2.基本思想</h2><p>正整数关于2具有不重复次幂的<strong>唯一分解性质</strong>，对于序列的前x项前缀和，我们可以将[1,x]区间<strong>按幂次从大到小</strong>关于2分解为<em>logx</em>个子区间进行维护。</p>
+<h2 id="3-区间特性"><a href="#3-区间特性" class="headerlink" title="3.区间特性"></a>3.区间特性</h2><p>在此首先引入<em><strong>lowbit</strong></em>, lowbit(x)的值即为x在二进制数下最低一位1所对应的值。lowbit的快速求法如下：</p>
+<p><em><strong>lowbit(x)&#x3D;x&amp;-x</strong></em></p>
+<p>接下来我们将以<em>lowbit</em>的视角理解树状数组区间特性      </p>
+<p>（1）若区间结尾为r，则区间长度即为r二进制分解下最小的2的次幂，即lowbit(r)。所以，树状数组中建立了数组c , <strong>c[x]即保存了所维护序列的区间[x-lowbit(x)+1,x]上所有数的和</strong>。</p>
+<p>（2）对于区间c[x], 它的子区间个数即lowbit(x)的位数。<strong>实际上，它的子区间对其进行了又一次关于2的分解</strong>。</p>
+<p>（3）**对于区间c[x], 它的父节点是c[x+lowbit(x)]**。</p>
+<p>这些性质中，（1）和(3)最为重要，其直接对应了树状数组的<strong>查询与修改操作</strong></p>
+<h2 id="4-操作"><a href="#4-操作" class="headerlink" title="4.操作"></a>4.操作</h2><h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>查询序列的前x项的前缀和时，用ans值累加区间和。将x-&#x3D;lowbit[x]就可以快速的将区间跳转至<strong>前一个区间</strong>从而实现对前n项的覆盖。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">sum</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        ans+=(ll)c[x];</span><br><span class="line">        x-=(x&amp;-x);<span class="comment">//将区间分割化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度:O(logn)</p>
+<h3 id="单点修改"><a href="#单点修改" class="headerlink" title="单点修改"></a>单点修改</h3><p>修改x点时，在改变了c[x]区间的值后就可以x+&#x3D;lowbit(x),实现向父区间的迁移。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t=y;</span><br><span class="line">    <span class="keyword">while</span>(t&lt;=n)</span><br><span class="line">    &#123;</span><br><span class="line">        c[t]+=<span class="number">1</span>;</span><br><span class="line">        t+=(t&amp;-t);<span class="comment">//向父节点移动</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度:O(logn)</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>从小到大扫描1~n,利用lowbit运算扫描其子节点并求和</p>
+<p>时间复杂度:O(n)</p>
+<h1 id="进阶应用"><a href="#进阶应用" class="headerlink" title="进阶应用"></a>进阶应用</h1><h3 id="求解序列逆序对"><a href="#求解序列逆序对" class="headerlink" title="求解序列逆序对"></a>求解序列逆序对</h3><p>将序列<strong>逆向输入</strong>树状数组累加即得逆序对个数</p>
+<h3 id="区间修改问题"><a href="#区间修改问题" class="headerlink" title="区间修改问题"></a>区间修改问题</h3><p>对于区间修改问题，只需要利用树状数组维护一个修改序列，<strong>修改序列前缀和即为原序列对应项的修改值</strong></p>
+<h3 id="区间求值问题"><a href="#区间求值问题" class="headerlink" title="区间求值问题"></a>区间求值问题</h3><p>经过求和等代数运算，在区间修改问题的基础上，树状数组可以通过<strong>维护特定值</strong>实现区间求值。</p>
+<p>有意思的题：poj3468</p>
+<hr>
+<p><del>更详细内容可参考blue book0x42</del></p>
 
         </div>
 
@@ -229,7 +248,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%A0%91%E5%BD%A2DP/"># 树形DP</a>
+                        <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"># 树状数组</a>
                     
                         
                 </span>
@@ -242,8 +261,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/08/10/%E6%95%B0%E4%BD%8DDP%E7%81%B5%E7%A5%9E%E6%A8%A1%E6%9D%BF/">数位DP_灵神模板</a>
+                <a class="prev" rel="prev" href="/2024/08/10/%E7%BA%BF%E6%AE%B5%E6%A0%91-%E6%80%BB%E7%BB%93/">线段树_总结</a>
             
+            
+            <a class="next" rel="next" href="/2024/08/10/%E5%B9%B3%E8%A1%A1%E6%A0%91-%E6%80%BB%E7%BB%93/">平衡树_总结</a>
             
         </section>
 

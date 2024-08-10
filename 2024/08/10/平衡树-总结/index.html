@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>平衡树_总结 | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">LLX&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">LLX&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">平衡树_总结</h1>
+            
+                <div class="post-meta">
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">August 10, 2024&nbsp;&nbsp;8:40:05</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="基本内容"><a href="#基本内容" class="headerlink" title="基本内容"></a>基本内容</h1><h2 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h2><p>平衡树是对二叉查找树的改进，所以我们先了解<strong>二叉查找树</strong>。二叉查找树是满足<strong>BST</strong>性质的的树形结构，即<strong>任意一节点的关键码大于左子树中任意节点的关键码，小于右子树中任意节点的关键码</strong>。</p>
+<p>显然，我们可以发现二叉查找树的中序遍历是一个<strong>关键码递增的节点序列</strong>。所以我们可以用二叉查找树维护一段序列，并执行<strong>检索、插入、删除、求前驱后继</strong>的一系列操作。在二叉查找树中不断向下的过程是<strong>类二分</strong>过程。</p>
+<p>（具体代码将直接在Treap代码中体现）</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在理想化的情况下，二叉查找树能够实现<strong>指数级别</strong>的查找。但问题在于，对于同一序列，二叉查找树可以有非常多种形态，如果左右子树极不平衡，就会导致二叉查找树<strong>退化为链表</strong>。</p>
+<h2 id="平衡树算法Treap"><a href="#平衡树算法Treap" class="headerlink" title="平衡树算法Treap"></a>平衡树算法Treap</h2><p>在此我们引入<strong>左旋zag</strong>和<strong>右旋zig</strong>操作，该操作可以极大地降低二叉查找树的不平衡性。但是如何决策进行操作呢？从概率上看，随机生成的数据相应构造的二叉查找树应该是平衡的，因此在<strong>Treap</strong>算法中，每个节点还会得到相应的<strong>rand</strong>值，通过左右旋操作使得查找树同时保持BST性质和<strong>相应于rand值的堆性质</strong>，从而使查找树保持相对的平衡。</p>
+<p>本质上，Treap平衡树就是<strong>加入了旋转操作的二叉查找树</strong>。</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="左右旋"><a href="#左右旋" class="headerlink" title="左右旋"></a>左右旋</h3><p>注意左右旋过程中的&amp;符，因为该函数还会<strong>直接改变旋转点原父节点的子节点</strong>。旋转完后记得<strong>更新节点信息</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">zig</span><span class="params">(<span class="type">int</span> &amp;p)</span><span class="comment">//右旋</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> q=t[p].l;</span><br><span class="line">    t[p].l=t[q].r;</span><br><span class="line">    t[q].r=p;</span><br><span class="line">    p=q;</span><br><span class="line">    <span class="built_in">Update</span>(t[p].r);</span><br><span class="line">    <span class="built_in">Update</span>(p);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立新节点"><a href="#建立新节点" class="headerlink" title="建立新节点"></a>建立新节点</h3><p>New函数将直接返回节点索引值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">New</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    t[++tot].val=x;</span><br><span class="line">    t[tot].cnt=t[tot].size=<span class="number">1</span>;</span><br><span class="line">    t[tot].l=<span class="number">0</span>;</span><br><span class="line">    t[tot].r=<span class="number">0</span>;</span><br><span class="line">    t[tot].dat=<span class="built_in">rand</span>();</span><br><span class="line">    <span class="keyword">return</span> tot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><p>在平衡树中加入关键值INF,-INF作为<strong>关键值边界</strong>。同时记录下平衡树的根节点root。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    root=<span class="built_in">New</span>(-INF);</span><br><span class="line">    t[root].r=<span class="built_in">New</span>(INF);</span><br><span class="line">    t[root].cnt=<span class="number">0</span>;</span><br><span class="line">    t[root].size=<span class="number">0</span>;</span><br><span class="line">    t[t[root].r].cnt=<span class="number">0</span>;</span><br><span class="line">    t[t[root].r].size=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(t[root].dat&lt;t[t[root].r].dat)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">zag</span>(root);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Update</span>(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/"># 平衡树</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/08/10/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84-%E6%80%BB%E7%BB%93/">树状数组_总结</a>
+            
+            
+            <a class="next" rel="next" href="/2024/08/10/%E5%88%86%E5%9D%97-%E4%BD%9C%E8%AF%97/">分块_P4135作诗</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
